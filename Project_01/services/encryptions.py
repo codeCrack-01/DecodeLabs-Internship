@@ -26,7 +26,7 @@ def embed_data(image: Image.Image, payload: bytes) -> Image.Image:
 
     for y in range(height):
         for x in range(width):
-            r, g, b = pixels[x, y]
+            r, g, b = pixels[x, y]  # type: ignore
 
             channels = [r, g, b]
 
@@ -35,7 +35,7 @@ def embed_data(image: Image.Image, payload: bytes) -> Image.Image:
                     channels[i] = (channels[i] & ~1) | int(bits[bit_index])
                     bit_index += 1
 
-            pixels[x, y] = tuple(channels)
+            pixels[x, y] = tuple(channels)  # type: ignore
 
             if bit_index >= len(bits):
                 return image
@@ -53,7 +53,7 @@ def extract_data(image: Image.Image) -> bytes:
 
     for y in range(height):
         for x in range(width):
-            r, g, b = pixels[x, y]
+            r, g, b = pixels[x, y]  # type: ignore
 
             bits.append(str(r & 1))
             bits.append(str(g & 1))

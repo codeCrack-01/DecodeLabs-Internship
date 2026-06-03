@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from fastapi.responses import StreamingResponse
 from PIL import Image
-
 from services.encryptions import embed_data, extract_data
 
 load_dotenv()
@@ -46,7 +45,7 @@ async def encrypt(file: UploadFile = File(...), message: str = Form(...)):
 
     image_buffer = BytesIO()
 
-    # The PNG is good for quality, other types loose that, thats why...
+    # The PNG is good for quality, other types loose that, thats why I used it
     encoded_image.save(image_buffer, format="PNG")
     image_buffer.seek(0)
 
@@ -57,10 +56,6 @@ async def encrypt(file: UploadFile = File(...), message: str = Form(...)):
     }
 
     key_bytes = json.dumps(key_payload, indent=2).encode()
-
-    # =====================================================
-    # Create ZIP Bundle
-    # =====================================================
 
     zip_buffer = BytesIO()
 
